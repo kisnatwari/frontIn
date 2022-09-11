@@ -1,0 +1,16 @@
+.modal#loginModal.fade
+    .modal-dialog.modal-lg
+        .modal-body 
+            .modal-content 
+                .row 
+                    .col-md-6.p-5.d-flex.align-items-center
+                        img.w-100(src="images/signup.svg" alt="alt" )
+                    .col-md-6.px-4 
+                        form#login-form
+                            p.display-6.mt-4 Welcome
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(type="email" placeholder="Email Id" name="email")
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(type="password" placeholder="Password" name="password")
+                            button.btn.btn-primary.shadow-none.border.mb-4.mt-1.px-4#login-btn Login
+                            .main-message
+                            span.mb-5.d-block New User ? 
+                                a(href="#" data-bs-toggle="modal" data-bs-target="#signupModal") Create an Account 

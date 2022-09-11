@@ -1,0 +1,40 @@
+.modal#signupModal.fade
+    .modal-dialog.modal-lg
+        .modal-body 
+            .modal-content 
+                .row 
+                    .col-md-6.p-5.d-flex.align-items-center
+                        img.w-100(src="images/signup.svg" alt="alt" )
+                    .col-md-6.px-4 
+                        form#signup-form
+                            p.display-6.mt-4 Register Now
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(
+                                type="text"
+                                placeholder="Name of your Company" 
+                                name="company_name"
+                                class = "company-name"
+                                required)
+                            div.message-company-name
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(
+                                type="email"
+                                placeholder="Company Email Address" 
+                                name="email"
+                                class = "company-email"
+                                required)
+                            div.message-company-email
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(
+                                type="text"
+                                placeholder="Company Mobile Number" 
+                                name="mobile"
+                                class = "company-mobile"
+                                required)
+                            div.message-company-mobile
+                            input.form-control.shadow-none.border.p-3.my-3.w-100(
+                                type="password"
+                                placeholder="Password" 
+                                name="password"
+                                required)
+                            button.btn.btn-primary.shadow-none.border.mb-4.px-4#signup-btn Sign Up
+                            .main-message 
+                            span.mb-5.d-block Already have an account? 
+                                a(href="#" data-bs-toggle="modal" data-bs-target="#loginModal") Login 
