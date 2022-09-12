@@ -10,14 +10,11 @@ router.post("/", async (request, response) => {
 
 
     //api request to store company data excluding password
-    console.log(request.get('origin'));
     const companyRes = await httpService.postRequest({
         endpoint: request.get('origin'), //http://localhost:8080
         api: "/api/private/company",
         data: { token: token }   //could be accessed by request.body.token in company api
     });
-
-    ///console.log(companyRes);
 
 
     //storing password in seperate collection after company data being stored
@@ -39,7 +36,6 @@ router.post("/", async (request, response) => {
             response.json(userResponse);
         }
         catch (err) {
-            //console.log(err);
         }
     }
     else {

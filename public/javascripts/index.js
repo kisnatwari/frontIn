@@ -47,7 +47,7 @@ $(document).ready(() => {
         $.ajax({
             type: "POST",
             url: "/api/login",
-            data: new FormData(document.querySelector("#signup-form")),
+            data: new FormData(document.querySelector("#login-form")),
             contentType: false,
             processData: false,
             beforeSend: () => {
@@ -57,10 +57,11 @@ $(document).ready(() => {
             success: (response) => {
                 $("#login-btn").html(`Login`);
                 $("#login-btn").removeAttr("disabled");
+                console.log(response);
                 //redirect to login
             },
             error: (response) => {
-                $("#login-btn").html(`Sign Up`);
+                $("#login-btn").html(`Login`);
                 $("#login-btn").removeAttr("disabled");
                 console.log(response);
                 const error = JSON.parse(response.responseJSON.text);

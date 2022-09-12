@@ -1,15 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const companyController = require("../controllers/company.controller");
-const token = require("../services/token.service");
+const tokenService = require("../services/token.service");
 router.post("/", (request, response) => {
-    const verifyToken = token.verifyToken(request);
+    const verifyToken = tokenService.verifyToken(request);
     if (verifyToken.isVerified) {
         companyController.createCompany(request, response);
     }
     else {
         console.log("Token Verification failed");
     }
+})
+
+router.get("/:query", async (request, response) => {
+    const companyRes = await companyController.getCompanyId(request, response);
+
+    return;
 })
 
 module.exports = router;

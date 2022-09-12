@@ -15,8 +15,15 @@ const createRecord = async (data, collectionName) => {
     return dataResponse;
 }
 
+const getRecordByQuery = async (query, collectionName) => {
+    const currentSchema = schemaList[collectionName];
+    const dataRes = await currentSchema.find(query);
+    return dataRes;
+}
+
 
 
 module.exports = {
-    createRecord: createRecord
+    createRecord: createRecord,
+    getRecordByQuery: getRecordByQuery
 }
