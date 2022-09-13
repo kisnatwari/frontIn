@@ -13,14 +13,13 @@ const tokenService = require("./services/token.service");
 const userRoute = require("./routes/user.routes");
 const loginRoute = require("./routes/login.routes");
 const profileRoute = require("./routes/profile.routes");
+const authController = require('./controllers/auth.controller');
 
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,7 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRoute);
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
-app.use("/profile", profileRoute);
 
 
 //Middleware verifying token For private API
@@ -43,13 +41,27 @@ app.use((request, response, next) => {
     next();
   }
   else {
-    response.status(401).json({
-      message: "Permission Denied! Invalid request made"
-    })
+    response.clearCookie("authToken");
+    response.status(401).redirect("/");
   }
 });
+
+const autoLogger = () => {
+  return async (request, response, next) => {
+    const isLogged = await authController.checkUserLog(request);
+    if (isLogged) {
+      next();
+    }
+    else {
+      response.clearCookie('authToken');
+      response.redirect("/");
+    }
+  }
+}
+
 app.use("/api/private/company", companyRoute);
 app.use("/api/private/user", userRoute);
+app.use("/profile", autoLogger(), profileRoute);
 
 
 

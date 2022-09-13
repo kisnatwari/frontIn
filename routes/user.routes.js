@@ -10,4 +10,8 @@ router.get("/:query", async (request, response) => {
     const passwordRes = userController.getUserPassword(request, response);
 })
 
+router.put("/:id", async (request, response) => {
+    await userController.createLog(request, response);
+})
+
 module.exports = router;

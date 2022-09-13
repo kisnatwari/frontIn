@@ -1,3 +1,4 @@
+const databaseService = require("../services/database.service");
 const dbService = require("../services/database.service");
 const tokenService = require("../services/token.service");
 
@@ -48,7 +49,28 @@ const getUserPassword = async (request, response) => {
     }
 }
 
+const createLog = async (request, response) => {
+    const token = await tokenService.verifyToken(request);
+    if (token.isVerified) {
+        const query = { uid: token.data.uid }
+        const data = {
+            token: request.body.token,
+            expiresIn: 86400,
+            isLogged: true,
+            updatedAt: Date.now()
+        }
+        const userRes = await databaseService.updateByQuery(query, 'User', data)
+        response.status(201).json({ message: "Update Success !" })
+    }
+    else {
+        response.status(401).json({
+            message: "Permission Denied !"
+        })
+    }
+}
+
 module.exports = {
     createUser: createUser,
-    getUserPassword: getUserPassword
+    getUserPassword: getUserPassword,
+    createLog: createLog
 }

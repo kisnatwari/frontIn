@@ -36,13 +36,20 @@ router.post("/", async (request, response) => {
                 //store user id in cookie
                 const query = {
                     iss: request.get('origin') + request.originalUrl,
-                    data: {
+                    body: {
                         uid: companyRes.body.data[0]._id
                     }
                 };
+
                 //token valid for 7 days
-                const authToken = await tokenService.createCustomToken(query, 3600 * 24 * 7);
-                response.cookie('authToken', authToken);
+                const authToken = await tokenService.createCustomToken(query, 86400);
+                await response.cookie('authToken', authToken, { maxAge: 86400 * 1000 });
+                await httpService.putRequest({
+                    endpoint: request.get('origin'),
+                    api: "/api/private/user",
+                    data: { token: authToken }
+                })
+
                 response.status(200).json({
                     isLogged: true,
                     message: "Login Success"
@@ -54,7 +61,6 @@ router.post("/", async (request, response) => {
                     message: "Password is wrong"
                 })
             }
-            console.log(isPasswordMatched);
         }
         else {
             response.status(401).json({

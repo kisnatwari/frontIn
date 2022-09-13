@@ -14,8 +14,16 @@ const getRequest = async (request) => {
     return response;
 }
 
+const putRequest = async (request) => {
+    const response = await ajax(request.endpoint)    // http://localhost:8080
+        .put((request.api + "/" + request.data.token))     //  api/private/company  + "/"  +  JWT encrypted token
+        .send({ token: request.data.token })      //  headers are required for GET request
+    return response;
+}
+
 
 module.exports = {
     postRequest: postRequest,
-    getRequest: getRequest
+    getRequest: getRequest,
+    putRequest: putRequest
 }

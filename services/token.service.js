@@ -29,7 +29,15 @@ const createCustom = async (data, expiresIn) => {
 const verify = (request) => {
     let token = "";
     if (request.method == 'GET') {
-        token = request.headers['x-auth-token'];
+        if (request.headers['x-auth-token']) {
+            token = request.headers['x-auth-token'];
+        }
+        else if (request.cookies.authToken) {
+            token = request.cookies.authToken
+        }
+        else {
+            return { isVerified: false, data: null };
+        }
     }
     else {
         token = request.body.token;

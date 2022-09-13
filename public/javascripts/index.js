@@ -1,3 +1,7 @@
+if (document.cookie.indexOf("authToken") != -1) {
+    window.location = "/profile";
+}
+
 $(document).ready(() => {
     $("#signup-form").submit((e) => {
         e.preventDefault();
