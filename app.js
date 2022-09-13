@@ -12,6 +12,7 @@ const companyRoute = require("./routes/company.routes");
 const tokenService = require("./services/token.service");
 const userRoute = require("./routes/user.routes");
 const loginRoute = require("./routes/login.routes");
+const profileRoute = require("./routes/profile.routes");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRoute);
 app.use("/api/signup", signupRoute);
 app.use("/api/login", loginRoute);
+app.use("/profile", profileRoute);
 
 
 //Middleware verifying token For private API

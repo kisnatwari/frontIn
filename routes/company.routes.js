@@ -13,9 +13,7 @@ router.post("/", (request, response) => {
 })
 
 router.get("/:query", async (request, response) => {
-    const companyRes = await companyController.getCompanyId(request, response);
-
-    return;
+    const companyRes = await companyController.getCompanyData(request, response);
 })
 
 module.exports = router;

@@ -6,8 +6,8 @@ const encrypt = async (data) => {
 }
 
 const compare = async (data, hash) => {
-    const compare = await bcrypt.compare(data.toString(), hash);
-    return compare;
+    const isVerified = await bcrypt.compare(data.toString(), hash);
+    return isVerified;
 }
 
 module.exports = {

@@ -11,7 +11,6 @@ const getRequest = async (request) => {
     const response = await ajax(request.endpoint)    // http://localhost:8080
         .get((request.api + "/" + request.data.token))     //  api/private/company  + "/"  +  JWT encrypted token
         .set({ "X-Auth-Token": request.data.token })      //  headers are required for GET request
-
     return response;
 }
 

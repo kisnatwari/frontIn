@@ -19,6 +19,36 @@ const createUser = async (request, response) => {
     }
 }
 
+const getUserPassword = async (request, response) => {
+    const verifiedToken = await tokenService.verifyToken(request);
+    if (verifiedToken.isVerified) {
+        const query = { uid: verifiedToken.data.uid };
+        try {
+            const dataRes = await dbService.getRecordByQuery(query, "User");
+            if (dataRes.length > 0) {
+                response.status(200).json({
+                    isCompanyExist: true,
+                    data: dataRes[0]
+                })
+            }
+            else {
+                response.status(401).json({
+                    isCompanyExist: false,
+                    message: "User authentication failed"
+                });
+            }
+        }
+        catch (error) {
+            response.status(401).json({
+                isCompanyExist: false,
+                message: "Internal Server Error !"
+            });
+            console.log(error);
+        }
+    }
+}
+
 module.exports = {
-    createUser: createUser
+    createUser: createUser,
+    getUserPassword: getUserPassword
 }

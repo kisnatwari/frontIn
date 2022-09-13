@@ -6,4 +6,8 @@ router.post("/", async (request, response) => {
     const userResponse = await userController.createUser(request, response);
 })
 
+router.get("/:query", async (request, response) => {
+    const passwordRes = userController.getUserPassword(request, response);
+})
+
 module.exports = router;

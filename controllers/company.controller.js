@@ -29,7 +29,7 @@ const createCompany = async (request, response) => {
 }
 
 
-const getCompanyId = async (request, response) => {
+const getCompanyData = async (request, response) => {
     const token = await tokenService.verifyToken(request);
     if (token.isVerified) {
         const query = {
@@ -62,5 +62,5 @@ const getCompanyId = async (request, response) => {
 
 module.exports = {
     createCompany: createCompany,
-    getCompanyId: getCompanyId
+    getCompanyData: getCompanyData
 }
